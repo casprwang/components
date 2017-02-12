@@ -1,0 +1,14 @@
+.box p {
+  border: 1px solid #333;
+  background-color: azure;
+  padding: 2rem;
+}
+
+html {
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  /**
+   The touch-action CSS property specifies whether, and in what ways, 
+   a given region can be manipulated by the user (for instance, by panning or zooming).
+   **/
+}
