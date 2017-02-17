@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title></title>
+
+
+  <style>
+    .page-1 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      <!-- background-color: red; -->
+    }
+    
+    .page-2 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      <!-- background-color: yellow; -->
+    }
+    
+    .center {
+      font-size: 300%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+
+
+</head>
+
+<body>
+
+  <div class="page-2" id="page-2" onTouchStart="p2TouchStart(event)" onTouchMove="p2TouchMove(event)" onTouchEnd="p2TouchEnd(event)"><span class="center">page 2</span></div>
+  <div class="page-1" id="page-1" onTouchStart="p1TouchStart(event)" onTouchMove="p1TouchMove(event)" onTouchEnd="p1TouchEnd(event)"><span class="center">page 1</span></div>
+</body>
+
+<script>
+  const p1 = document.getElementById('page-1')
+  const p2 = document.getElementById('page-2')
+
+  let startingX;
+
+  function p1TouchStart(evt) {
+    startingX = evt.touches[0].clientX;
+  }
+
+  function p1TouchMove(evt) {
+    let touch = evt.touches[0];
+    let change = startingX - touch.clientX;
+
+    if( change < 0 ) {
+      return;
+    }
+    p1.style.left = '-'+ change + 'px';
+    p2.style.display = 'block';
+    p2.style.left = (screen.width - change) + 'px';
+    evt.preventDefault();
+  }
+
+  function p1TouchEnd(evt) {
+    let change = startingX - evt.changedTouches[0].clientX;
+    let threshold = screen.width / 3;
+
+    if(change < threshold) {
+      p1.style.left = 0;
+      p2.style.left = '100%';
+      p2.style.display = 'none';
+    } else {
+      p1.style.transition = 'all .3s';
+      p2.style.transition = 'all .3s';
+      p1.style.left = '-100%';
+      p2.style.left = '0';
+      p2.style.display = 'block';
+    }
+  }
+
+function p2TouchStart(evt) {
+  startingX = evt.touches[0].clientX;
+  p1.style.transition = '';
+  p2.style.transition = '';
+  p1.style.display = 'none';
+};
+
+function p2TouchMove(evt) {
+  let touch = evt.touches[0];
+  let change = touch.clientX - startingX;
+  if (change < 0) {
+    return;
+  }
+  p1.style.display = 'block';
+  p1.style.left = (change - screen.width) + 'px';
+  p2.style.left = change + 'px';
+  evt.preventDefault()
+}
+
+function p2TouchEnd(evt) {
+  let change = evt.changedTouches[0].clientX - startingX;
+  let half = screen.width / 4;
+  if(change < half) {
+    p1.style.left = '-100%';
+    p1.style.display = 'none';
+    p2.style.left = '0';
+  } else {
+    p1.style.transition = 'all .3s';
+    p2.style.transition = 'all .3s';
+    p1.style.left = '0';
+    p2.style.left = '100%';
+  }
+}
+
+
+
+
+</script>
+
+</html>

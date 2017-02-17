@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>clientX\clientY example</title>
+
+</head>
+
+<body onmousedown="showCoords(event)">
+  <p>To display the mouse coordinates click anywhere on the page.</p>
+</body>
+<script>
+  function showCoords(evt) {
+    console.log(
+      "clientX value: " + evt.clientX + "\n" +
+      "clientY value: " + evt.clientY + "\n"
+    );
+  }
+
+function showLog(evt) {
+  console.log('haha')
+}
+
+</script>
+
+</html>
