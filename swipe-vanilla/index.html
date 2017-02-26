@@ -5,17 +5,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- <meta name="apple-mobile-web-app-capable" content="yes" /> -->
+  <!-- <1!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> --1> -->
+  <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black" /> -->
   <title></title>
 
 
   <style>
+
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
     .page-1 {
       position: absolute;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      <!-- background-color: red; -->
     }
     
     .page-2 {
@@ -25,7 +33,7 @@
       display: none;
       width: 100vw;
       height: 100vh;
-      <!-- background-color: yellow; -->
+      background-color: yellow;
     }
     
     .center {
@@ -35,6 +43,9 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }
+
+
+
   </style>
 
 
@@ -42,8 +53,8 @@
 
 <body>
 
-  <div class="page-2" id="page-2" onTouchStart="p2TouchStart(event)" onTouchMove="p2TouchMove(event)" onTouchEnd="p2TouchEnd(event)"><span class="center">page 2</span></div>
   <div class="page-1" id="page-1" onTouchStart="p1TouchStart(event)" onTouchMove="p1TouchMove(event)" onTouchEnd="p1TouchEnd(event)"><span class="center">page 1</span></div>
+  <div class="page-2" id="page-2" onTouchStart="p2TouchStart(event)" onTouchMove="p2TouchMove(event)" onTouchEnd="p2TouchEnd(event)"><span class="center">page 2</span></div>
 </body>
 
 <script>
@@ -54,6 +65,9 @@
 
   function p1TouchStart(evt) {
     startingX = evt.touches[0].clientX;
+    p2.style.transition = '';
+    p1.style.transition = '';
+    p2.style.display = 'none';
   }
 
   function p1TouchMove(evt) {
@@ -77,6 +91,8 @@
       p1.style.left = 0;
       p2.style.left = '100%';
       p2.style.display = 'none';
+      p1.style.transition = 'all .3s';
+      p2.style.transition = 'all .3s';
     } else {
       p1.style.transition = 'all .3s';
       p2.style.transition = 'all .3s';
@@ -112,9 +128,12 @@ function p2TouchEnd(evt) {
     p1.style.left = '-100%';
     p1.style.display = 'none';
     p2.style.left = '0';
+    p1.style.transition = 'all .3s';
+    p2.style.transition = 'all .3s';
   } else {
     p1.style.transition = 'all .3s';
     p2.style.transition = 'all .3s';
+    <!-- p1.style.display = 'block'; -->
     p1.style.left = '0';
     p2.style.left = '100%';
   }
